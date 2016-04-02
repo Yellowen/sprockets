@@ -54,6 +54,11 @@ module Sprockets
       assets.reduce(initial) do |h, asset|
         reducers.each do |k, (_, block)|
           value = k == :data ? asset.source : asset.metadata[k]
+
+          if value.is_a?(String) && !value.blank?
+            value = "//**FILENAME:#{asset.filename}**\r\n#{value}"
+          end
+
           if h.key?(k)
             if !value.nil?
               h[k] = block.call(h[k], value)

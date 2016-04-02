@@ -68,7 +68,9 @@ module Sprockets
     end
 
     def find_all_linked_assets(path, options = {})
+
       return to_enum(__method__, path, options) unless block_given?
+
 
       asset = find_asset(path, options)
       return unless asset
